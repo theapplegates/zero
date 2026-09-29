@@ -1,0 +1,36 @@
+---
+// Fundations
+import DocsLayout from "@/layouts/DocsLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Header from "@/components/fundations/containers/Header.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import TeamCard from "@/components/team/TeamCard.astro";
+// Content
+import { getCollection } from "astro:content";
+const allAuthors = await getCollection("team");
+---
+
+<DocsLayout>
+  <section>
+    <Header
+      title="Meet the crew"
+      description="ZeroIndex is built by a team of lazy and non-technical people. "
+      innerClass="pt-24 "
+    />
+    <div
+      class="p-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 gap-y-12"
+    >
+      {
+        // Sorting authors alphabetically inline
+        allAuthors
+          .sort((a, b) => {
+            const nameA = a.data.name.toLowerCase();
+            const nameB = b.data.name.toLowerCase();
+            return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+          })
+          .map((post) => <TeamCard post={post} />)
+      }
+    </div>
+  </section>
+</DocsLayout>

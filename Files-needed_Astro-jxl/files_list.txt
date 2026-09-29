@@ -1,0 +1,15 @@
+Files to move to another Astro site
+
+| File | Purpose |
+| --- | --- |
+| `src/lib/cloudinary-core.mjs` | Shared URL, format order, crop, and breakpoint logic |
+| `src/lib/cloudinary.ts` | Astro environment configuration and typed exports |
+| `src/data/cloudinary-images.json` | Generated public image metadata and format-specific widths |
+| `src/components/CloudinaryImage.astro` | Responsive Astro picture component |
+| `src/plugins/rehype-cloudinary-picture.mjs` | Import-free Markdown image support |
+| `scripts/cloudinary-breakpoints.mjs` | Upload and per-format breakpoint analysis |
+| `astro.config.mjs` | Markdown plugin registration; merge into the other site's config |
+| `package.json` and `package-lock.json` | Command and dependencies; merge rather than replace |
+| `.env.example` and `.gitignore` | Configuration template and private environment exclusions |
+| `src/styles/global.css` | Copy the `.cloudinary-picture` rules |
+| `tests/cloudinary.test.mjs` | Format, crop, Markdown, and upload contract tests |

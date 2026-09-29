@@ -1,0 +1,40 @@
+{
+  "name": "my-portfolio",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "dev:search": "npm run build && astro dev",
+    "build": "astro build",
+    "postbuild": "npm run search:index",
+    "search:index": "pagefind --site dist && rm -rf public/pagefind && cp -R dist/pagefind public/pagefind",
+    "clean": "rm -rf dist public/pagefind .astro",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check",
+    "test": "node --test tests/*.test.mjs",
+    "cloudinary:breakpoints": "node scripts/cloudinary-breakpoints.mjs"
+  },
+  "dependencies": {
+    "astro": "^6.3.1",
+    "cloudinary": "^2.11.0",
+    "hast-util-from-html": "^2.0.3",
+    "zod": "^4.6.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.9",
+    "@astrojs/markdown-remark": "^7.3.1",
+    "@pagefind/default-ui": "^1.5.2",
+    "@types/node": "^22.20.2",
+    "pagefind": "^1.5.2",
+    "typescript": "6.0.3"
+  },
+  "allowScripts": {
+    "esbuild@0.27.7": true,
+    "fsevents@2.3.3": true,
+    "sharp@0.34.5": true
+  }
+}
