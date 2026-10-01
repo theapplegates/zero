@@ -5,6 +5,8 @@ import { Image } from "astro:assets";
 import DocsLayout from "@/layouts/DocsLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Header from "@/components/fundations/containers/Header.astro";
+// Components
+import BlogBreadcrumb from "@/components/blog/BlogBreadcrumb.astro";
 // Content
 import { getCollection } from "astro:content";
 const pageTitle = "Tag Index";
@@ -28,12 +30,22 @@ function getTagImage(tag) {
   return postWithImage?.data.image.url;
 }
 ---
-<DocsLayout pageTitle={pageTitle}>
+<DocsLayout hideSidebar={true} pageTitle={pageTitle}>
   <section>
     <Header
       title=" Explore all our tags"
       innerClass="pt-24"
-    />
+    >
+      <div class="order-first">
+        <BlogBreadcrumb
+          items={[
+            { href: "/", label: "Home" },
+            { href: "/blog", label: "Blog" },
+            { label: "Tags" },
+          ]}
+        />
+      </div>
+    </Header>
        <div class="grid grid-cols-1 md:grid-cols-2  gap-8 p-8">
        {
          tags.map((tag) => (

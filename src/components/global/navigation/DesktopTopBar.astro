@@ -2,6 +2,9 @@
 // Components
 import SearchBar from "@/components/global/navigation/SearchBar.astro";
 import ThemeToggle from "@/components/assets/ThemeToggle.astro";
+// Assets
+import Logo from "@/components/assets/Logo.astro";
+const { fullWidth = false } = Astro.props;
 const navigationButtons = [
   {
     title: "Buy Zeroindex",
@@ -23,11 +26,28 @@ const navigationButtons = [
 ---
 
 <header
-  class="fixed top-0 right-0 z-50 hidden w-auto lg:block left-72 bg-base-100 dark:bg-base-700"
+  class:list={[
+    "fixed top-0 right-0 z-50 hidden w-auto lg:block bg-base-100 dark:bg-base-700",
+    fullWidth ? "left-0" : "left-72",
+  ]}
 >
   <div
-    class="flex items-center justify-between gap-4 lg:mt-1 lg:mr-1 border-t lg:border-r lg:rounded-tr-xl px-4 py-2.5 border-b border-base-200 dark:border-base-800 bg-white dark:bg-base-900"
+    class:list={[
+      "flex items-center justify-between gap-4 lg:mt-1 lg:mr-1 border-t lg:border-r lg:rounded-tr-xl px-4 py-2.5 border-b border-base-200 dark:border-base-800 bg-white dark:bg-base-900",
+      { "lg:ml-1 lg:border-l lg:rounded-tl-xl": fullWidth },
+    ]}
   >
+    {
+      fullWidth && (
+        <a
+          href="/"
+          class="flex items-center shrink-0 space-x-2 text-base-900 dark:text-white"
+        >
+          <Logo class="size-4" />
+          <span class="text-lg font-semibold">ZeroIndex</span>
+        </a>
+      )
+    }
     <div class="w-full max-w-48">
       <SearchBar searchId="desktop" />
     </div>

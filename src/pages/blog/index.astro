@@ -1,4 +1,7 @@
 ---
+// Real page 1 of the blog, served directly at /blog
+// (replaces the old /blog → /blog/1 redirect, which flashed a bare
+// meta-refresh page before landing)
 // Fundations
 import DocsLayout from "@/layouts/DocsLayout.astro";
 // Component
@@ -6,34 +9,20 @@ import BlogListing from "@/components/blog/BlogListing.astro";
 // Content
 // Get all posts
 import { getCollection } from "astro:content";
-// Needed for dynamic pagination
-export async function getStaticPaths() {
-  const POSTS_PER_PAGE = 6;
-  const allPosts = await getCollection("posts");
-  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
-  return Array.from({ length: totalPages }, (_, i) => ({
-    params: { page: String(i + 1) },
-  }));
-}
-// Get the current page from URL
-const { page } = Astro.params;
-const currentPage = parseInt(page);
-// Fetch posts and paginate
 const POSTS_PER_PAGE = 6;
 const allPosts = await getCollection("posts");
 const sortedPosts = allPosts
   .filter((post) => post.data?.pubDate)
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
-const start = (currentPage - 1) * POSTS_PER_PAGE;
-const paginatedPosts = sortedPosts.slice(start, start + POSTS_PER_PAGE);
+const paginatedPosts = sortedPosts.slice(0, POSTS_PER_PAGE);
 // Tags
 const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 ---
 
 <DocsLayout hideSidebar={true}>
   <BlogListing
-    currentPage={currentPage}
+    currentPage={1}
     totalPages={totalPages}
     paginatedPosts={paginatedPosts}
     tags={tags}

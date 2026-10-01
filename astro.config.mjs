@@ -16,9 +16,6 @@ const env = loadEnv(process.env.NODE_ENV || "production", process.cwd(), "PUBLIC
 
 // https://astro.build/config
 export default defineConfig({
-  redirects: {
-    "/blog": "/blog/1",
-  },
   vite: {
     plugins: [tailwindcss()],
   },
@@ -44,7 +41,7 @@ export default defineConfig({
       wrap: false,
     },
   },
-  site: "https://yourdomain.com",
+  site: "https://zero.paulapplegate.com",
   integrations: [
     sitemap(),
     mdx({

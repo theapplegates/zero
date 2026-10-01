@@ -3,14 +3,30 @@
 import SearchBar from "@/components/global/navigation/SearchBar.astro";
 import MobileMenuToggle from "@/components/global/navigation/MobileMenuToggle.astro";
 import ThemeToggle from "@/components/assets/ThemeToggle.astro";
+// Assets
+import Logo from "@/components/assets/Logo.astro";
+// When the sidebar is hidden there is nothing for the hamburger to open,
+// so show the logo/home link in its place (it otherwise lives in the sidebar)
+const { hideMenuToggle = false } = Astro.props;
 ---
 
 <header
   class="px-2 py-2 bg-white border-b lg:hidden border-base-200 dark:border-base-800 dark:bg-base-900"
 >
   <div class="flex items-center justify-between gap-4">
+    {
+      hideMenuToggle && (
+        <a
+          href="/"
+          class="flex items-center shrink-0 space-x-2 text-base-900 dark:text-white"
+        >
+          <Logo class="size-4" />
+          <span class="text-lg font-semibold">ZeroIndex</span>
+        </a>
+      )
+    }
     <ThemeToggle />
     <SearchBar searchId="mobile" />
-    <MobileMenuToggle />
+    {!hideMenuToggle && <MobileMenuToggle />}
   </div>
 </header>

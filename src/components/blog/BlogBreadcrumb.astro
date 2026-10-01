@@ -1,0 +1,32 @@
+---
+// Breadcrumb in the same style as the docs pages:
+// Home › Blog › Post title — place inside <Header>'s default slot
+// wrapped in a div with class="order-first".
+// Icons
+import ChevronRight from "@/components/fundations/icons/ChevronRight.astro";
+type Crumb = { href?: string; label: string };
+const { items = [] } = Astro.props as { items: Crumb[] };
+---
+
+<nav aria-label="Breadcrumb">
+  <ol
+    class="text-base-500 dark:text-base-300 flex items-center gap-1 text-xs"
+  >
+    {
+      items.map((item, i) => (
+        <>
+          {i > 0 && <ChevronRight size="xs" />}
+          {item.href ? (
+            <a href={item.href} class="hover:text-accent-600 capitalize">
+              {item.label}
+            </a>
+          ) : (
+            <span class="capitalize text-accent-500 dark:text-accent-400">
+              {item.label}
+            </span>
+          )}
+        </>
+      ))
+    }
+  </ol>
+</nav>

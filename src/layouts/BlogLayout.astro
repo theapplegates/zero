@@ -10,6 +10,7 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 
 // Components
 import BlogCard from "@/components/blog/BlogCard.astro";
+import BlogBreadcrumb from "@/components/blog/BlogBreadcrumb.astro";
 import ShareButtons from "@/components/fundations/elements/ShareButtons.astro";
 // Scripts
 import TocAnimationScript from "@/components/fundations/scripts/TocAnimationScript.astro";
@@ -25,7 +26,7 @@ const relatedPosts = allPosts.filter((post) =>
 );
 ---
 
-<DocsLayout>
+<DocsLayout hideSidebar={true}>
   <section>
     <RightSidebarLayout>
       <div slot="main">
@@ -33,7 +34,17 @@ const relatedPosts = allPosts.filter((post) =>
           title={frontmatter.page}
           description={frontmatter.description}
           innerClass="gap-24 lg:gap-32"
-        />
+        >
+          <div class="order-first">
+            <BlogBreadcrumb
+              items={[
+                { href: "/", label: "Home" },
+                { href: "/blog", label: "Blog" },
+                { label: frontmatter.title ?? frontmatter.page },
+              ]}
+            />
+          </div>
+        </Header>
         <section class="px-8 pb-8">
           {
             frontmatter.image && (
